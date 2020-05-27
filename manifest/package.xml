@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+   <types>
+       <members>ObjectDetailController</members>
+        <members>SecurityUtil</members>
+        <members>ObjectDetailControllerTest</members>
+        <members>SecurityUtilTest</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>stencil</members>
+        <members>objectDetails</members>
+        <members>objectDetailsConfig</members>
+        <name>LightningComponentBundle</name>
+    </types>
+    <types>
+    	 <members>ObjectDeatilsConfig__mdt</members>
+         <name>CustomObject</name>
+    </types>
+    <types>
+        <members>ObjectDeatilsConfig__mdt-ObjectDeatilsConfig Layout</members>
+        <name>Layout</name>
+    </types>
+    <version>47.0</version>
+</Package>

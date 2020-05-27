@@ -1,0 +1,124 @@
+<template>
+    <c-stencil show-stencil={isStencilVisible}></c-stencil>
+    <!-- config page component -->
+	<template if:false={isDetailVisible} >
+        <c-object-details-config obj-name={objName} config-name={configName} config-data={configData} onupdateconfig={handleUpdateConfig}></c-object-details-config>
+    </template>
+    <template if:true={isDetailVisible} >   
+    <!-- Config Icon to navigate to config page -->
+    <template if:true={isConfigVisible} >
+            
+            <div if:true={isFirstLoad}> 
+                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info slds-m-bottom_small" role="alert">
+                    <h2>Please click on the gear icon to configure detail page
+                    </h2>
+                </div>
+            </div>
+            <lightning-button-icon icon-name="utility:settings"  variant="border-filled" alternative-text="Object Detail Configuration" title="Configuration" onclick={showConfigPage}></lightning-button-icon>
+        </template>
+    
+
+    <template if:true={isViewVisible} >
+    <lightning-record-view-form
+        record-id={recordId}
+        object-api-name={objName}
+        onload={handleViewLoad}>
+        
+        <!-- Section Starts -->
+        <div id="idxRecordView" class="slds-hide" if:true={configData}>
+            <template iterator:it={configData}>
+                <div key={it.value.secName} class="slds-section slds-is-open">
+                    <!-- Section Header -->
+                    <h3 class="slds-section__title slds-theme_shade" onclick={toggleSection}>
+                        <lightning-button-icon icon-name="utility:chevrondown" 
+                        variant="bare" alternative-text={it.value.secName} class="slds-m-left_xx-small"></lightning-button-icon>
+                        <span class="slds-truncate slds-p-horizontal_small" title="Section Title" >{it.value.secName}</span>
+                    </h3>
+                    <div aria-hidden="false" class="slds-section__content">
+                        
+                        <div class="slds-form" role="list"> 
+                            <div class="slds-form__row slds-grid">
+                                <template for:each={it.value.fieldConfigList} for:item="value" for:index="index">
+                                     <!-- Section tFields Start -->
+                                    <div key={value.fieldName} class="slds-form__item slds-size_12-of-12 slds-small-size_12-of-12 slds-large-size_6-of-12" role="listitem">
+                                            
+                                        <lightning-output-field field-name={value.fieldName} class="slds-form-element_readonly"></lightning-output-field>
+                                         <!-- Pencil icon for inline edit -->
+                                        <template if:true={value.isEditable} >
+                                            <lightning-button-icon icon-name="utility:edit" onclick={toggleEditForm} 
+                                                                size="medium" variant="bare" alternative-text="Edit" class="slds-m-top_small slds-is-relative editIcon" 
+                                                                style="right: 22px; width:0px" data-api={value.fieldName}></lightning-button-icon>
+                                        </template>
+                                    </div>
+                                    <!-- Section Fields End -->
+                                </template>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </template>
+        </div>
+        <!-- Section Ends -->
+            
+    </lightning-record-view-form>
+    </template>
+
+    <template if:true={isEditVisible} >
+
+        <lightning-record-edit-form
+                    record-id={recordId}
+                    object-api-name={objName} onload={handleEditLoad} onsuccess={handleSuccess}>
+            <div id="idxRecordEdit" class="slds-hide" style="box-shadow: 0 2px 4px 4px rgba(0,0,0,.16); padding: 1rem 1rem;">
+                <template iterator:it={configData}>
+                    <div key={it.value.secName} class="slds-section slds-is-open">
+                        <!-- Section Header -->
+                        <h3 class="slds-section__title slds-theme_shade" onclick={toggleSection}>
+                                <lightning-button-icon icon-name="utility:chevrondown" 
+                                variant="bare" alternative-text={it.value.secName} class="slds-m-left_xx-small"></lightning-button-icon>
+                                <span class="slds-truncate slds-p-horizontal_small" title="Section Title" >{it.value.secName}</span>
+                            </h3>
+                        <div aria-hidden="false" class="slds-section__content">
+
+                            <div class="slds-form" role="list"> 
+                                <div  class="slds-form__row slds-grid">
+                                    <template for:each={it.value.fieldConfigList} for:item="value" for:index="index">
+                                            <div key={value.fieldName} class="slds-form__item slds-size_12-of-12 slds-small-size_12-of-12 slds-large-size_6-of-12" role="listitem" >
+                                                    
+                                                    <template if:true={value.isReadonly} >
+                                                        <lightning-output-field field-name={value.fieldName}></lightning-output-field>
+                                                    </template>
+                                                    <template if:false={value.isReadonly} >
+                                                        <lightning-input-field field-name={value.fieldName} data-apiedit={value.fieldName}></lightning-input-field>
+                                                    </template>
+                                                    
+                                            </div>
+                                    </template>   
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </template>
+                
+            <div class="form-footer slds-p-vertical_medium slds-align_absolute-center">
+                <lightning-button
+                    class="slds-m-horizontal_xx-small"
+                    name="cancel"
+                    label="Cancel"
+                    onclick={handleSuccess}>
+                </lightning-button>
+                <lightning-button
+                    class="slds-m-horizontal_xx-small"
+                    variant="brand"
+                    type="submit"
+                    name="save"
+                    label="Save">
+                </lightning-button>
+            </div>
+
+            </div>
+        </lightning-record-edit-form>
+    </template>
+    </template>     
+</template>

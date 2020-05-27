@@ -1,0 +1,59 @@
+<template>
+    
+    <template iterator:it={configData}>
+        <!-- Existing section and selected fields loop -->
+        <div key={it.value.secName} class="slds-p-around_medium slds-section slds-is-open">
+            <lightning-layout multiple-rows="true">
+
+                <lightning-layout-item size="10">
+                        <lightning-input type="text" label="Section Name" placeholder="Enter Section Name" value={it.value.secName} required></lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item class="slds-p-top_large slds-p-left_large" size="2">
+                        <lightning-button-icon icon-name="utility:delete"  variant="border-filled" alternative-text="delete" title="delete" onclick={handleDelete}></lightning-button-icon>
+                </lightning-layout-item>
+                
+            </lightning-layout>
+            <lightning-dual-listbox name="fields"
+                                label="Select Fields"
+                                source-label="Available"
+                                selected-label="Selected"
+                                field-level-help="This is a dual listbox"
+                                options={options}
+                                value={it.value.fieldList}
+                                onchange={register}
+                                required></lightning-dual-listbox>
+        </div>
+        
+
+    </template>
+    <!-- New Section and fields selection -->
+    <template if:true={isNewSectionVisible}>
+        <div class="slds-p-around_medium">
+
+            <lightning-layout multiple-rows="true">
+
+                <lightning-layout-item size="10">
+                        <lightning-input type="text" label="Section Name" placeholder="Enter Section Name" required ></lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item class="slds-p-top_large slds-p-left_large" size="2">
+                        <lightning-button-icon icon-name="utility:delete"  variant="border-filled" alternative-text="delete" title="delete" onclick={handleDelete}></lightning-button-icon>
+                </lightning-layout-item>
+                
+            </lightning-layout>
+            <lightning-dual-listbox name="fields"
+                                    label="Select Fields"
+                                    source-label="Available"
+                                    selected-label="Selected"
+                                    field-level-help="This is a dual listbox"
+                                    options={options}
+                                    required
+                                    onchange={register}></lightning-dual-listbox>
+        </div>
+    </template>
+    <!-- Footer buttons to add new section common save and cancel -->
+    <div class="slds-p-around_medium lgc-bg">
+            <template if:false={isNewSectionVisible}><lightning-button variant="brand" label="Add Section" title="Add Section" onclick={handleAddSection} class="slds-m-left_x-small"></lightning-button></template>
+            <lightning-button variant="brand" label="Save" title="Save" onclick={handleSave} class="slds-m-left_x-small"></lightning-button>
+            <lightning-button variant="Neutral" label="Cancel" title="Cancel" onclick={handleCancel} class="slds-m-left_x-small"></lightning-button>
+    </div>
+</template>

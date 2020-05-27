@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "baseUrl": ".",
+        "paths": {
+            "c/objectDetails": [
+                "objectDetails/objectDetails.js"
+            ],
+            "c/stencil": [
+                "stencil/stencil.js"
+            ],
+            "c/objectDetailsConfig": [
+                "objectDetailsConfig/objectDetailsConfig.js"
+            ]
+        }
+    },
+    "include": [
+        "**/*",
+        "../../../../.sfdx/typings/lwc/**/*.d.ts"
+    ],
+    "typeAcquisition": {
+        "include": [
+            "jest"
+        ]
+    }
+}
