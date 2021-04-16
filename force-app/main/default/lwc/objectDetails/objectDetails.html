@@ -100,24 +100,13 @@
                         </div>
                     </div>
                 </template>
-                
-            <div class="form-footer slds-p-vertical_medium slds-align_absolute-center">
-                <lightning-button
-                    class="slds-m-horizontal_xx-small"
-                    name="cancel"
-                    label="Cancel"
-                    onclick={handleSuccess}>
-                </lightning-button>
-                <lightning-button
-                    class="slds-m-horizontal_xx-small"
-                    variant="brand"
-                    type="submit"
-                    name="save"
-                    label="Save">
-                </lightning-button>
             </div>
-
-            </div>
+		<div class="slds-docked-form-footer stickyFooter" style="position: sticky;bottom: 40px; width: 100%;height:64px; box-sizing:border-box; box-shadow:var(--lwc-shadowDocked,0 -2px 2px 0 rgba(0, 0, 0, 0.16)); z-index: var(--lwc-zIndexDocked)">
+			<div style="display: flex;justify-content:center;align-items:center;">
+			    <button onclick={handleSuccess} type="button" class="slds-button slds-button_neutral center-align-buttons">Cancel</button>
+			    <button type="submit" class="slds-button slds-button_brand center-align-buttons">Save</button>
+			</div>
+            	</div>
         </lightning-record-edit-form>
     </template>
     </template>     
